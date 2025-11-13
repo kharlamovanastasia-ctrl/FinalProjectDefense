@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DublicatAgro - аналоговые запчасти для сельхозтехники</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        /* Кастомные стили поверх Bootstrap */
+        :root {
+            --primary-green: #2e7d32;
+            --secondary-green: #4caf50;
+            --accent-orange: #ff9800;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 100px;
+        }
+
+        .page {
+            display: none;
+            min-height: 80vh;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Шапка */
+        .header {
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1030;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .header-contacts a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .main-nav {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .main-nav .nav-link {
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .main-nav .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Главная страница - Hero секция */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234caf50" width="1200" height="600"/></svg>');
+            background-size: cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .lead {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Карточки продуктов */
+        .product-card, .brand-card {
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .product-card:hover, .brand-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image, .brand-logo, .cart-item-image {
+            background: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+        }
+
+        .product-image {
+            height: 200px;
+            font-size: 3rem;
+        }
+
+        .brand-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            font-size: 2rem;
+        }
+
+        /* Контакты */
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        /* Футер */
+        footer {
+            background: var(--primary-green);
+            margin-top: 50px;
+        }
+
+        .footer-column h3 {
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-orange);
+        }
+
+        /* Кастомные кнопки */
+        .btn-primary-custom {
+            background: var(--accent-orange);
+            border-color: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-primary-custom:hover {
+            background: #e68900;
+            border-color: #e68900;
+            color: white;
+        }
+
+        .btn-outline-light-custom {
+            border-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .btn-outline-light-custom:hover {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        /* Категории */
+        .categories-sidebar {
+            position: sticky;
+            top: 120px;
+        }
+
+        .categories-list .nav-link {
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .categories-list .nav-link:hover {
+            background: #e8f5e9;
+            color: var(--primary-green);
+            padding-left: 20px !important;
+        }
+
+        .subcategory-list {
+            border-left: 2px solid #e8f5e9;
+            padding-left: 1rem;
+        }
+
+        .subcategory-list .nav-link {
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: #666;
+            padding: 5px 10px;
+        }
+
+        .subcategory-list .nav-link:hover {
+            background: #f8f9fa;
+            color: var(--primary-green);
+        }
+
+        /* Формы */
+        .login-container {
+            max-width: 400px;
+        }
+
+        .form-switch .btn {
+            border: none;
+            padding: 10px 20px;
+            color: #666;
+            border-bottom: 2px solid transparent;
+        }
+
+        .form-switch .btn.active {
+            color: var(--secondary-green);
+            border-bottom-color: var(--secondary-green);
+            font-weight: bold;
+        }
+
+        /* Корзина */
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e53935;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Адаптивность - дополнительные стили */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero .lead {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero .lead {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 140px;
+            }
+            
+            .header-contacts {
+                text-align: center;
+                margin: 10px 0;
+            }
+            
+            .categories-sidebar {
+                position: static;
+                margin-bottom: 2rem;
+            }
+            
+            /* Адаптация hero-секции для мобильных */
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+            
+            .hero .lead {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero .btn {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero .lead {
+                font-size: 1rem;
+            }
+            
+            .hero .btn {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+
+        .text-green {
+            color: var(--primary-green) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header py-2">
+        <div class="container">
+            <div class="row align-items-center py-2">
+                <!-- Логотип -->
+                <div class="col-md-3 col-6">
+                    <div class="d-flex align-items-center logo" onclick="showPage('home-page')" style="cursor: pointer;">
+                        <div class="logo-img">DA</div>
+                        <span class="text-white fw-bold ms-2 fs-5">DublicatAgro</span>
+                    </div>
+                </div>
+                
+                <!-- Контакты -->
+                <div class="col-md-3 col-12 text-md-start text-center">
+                    <div class="header-contacts">
+                        <a href="tel:+74712123456" class="fs-5">8 (4712) 12-34-56</a>
+                        <span class="text-white-50 small d-block">Бесплатный звонок по России</span>
+                    </div>
+                </div>
+                
+                <!-- Действия -->
+                <div class="col-md-6 col-6 text-end">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="btn btn-outline-light-custom" onclick="showPage('login-page')">Войти</button>
+                        <button class="btn btn-primary-custom position-relative" onclick="showPage('cart-page')">
+                            Корзина
+                            <span class="cart-count">2</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Навигация -->
+            <nav class="main-nav mt-2">
+                <ul class="nav justify-content-center flex-md-row flex-column gap-md-3 gap-1">
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('home-page')">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('catalog-page')">Каталог</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('brands-page')">Производители</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('delivery-page')">Доставка</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('contacts-page')">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Главная страница -->
+    <div id="home-page" class="page active">
+        <section class="hero">
+            <div class="container">
+                <h1 class="fw-bold mb-4">Запчасти для сельхозтехники</h1>
+                <p class="lead mb-4">Аналоговые запчасти для тракторов, комбайнов и другой сельскохозяйственной техники</p>
+                <button class="btn btn-primary-custom btn-lg" onclick="showPage('catalog-page')">Перейти в каталог</button>
+            </div>
+        </section>
+
+        <div class="container my-5">
+            <!-- Преимущества -->
+            <div class="text-center mb-5">
+                <h2 class="text-green mb-4">Почему выбирают нас</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-green">🚚 Быстрая доставка</h5>
+                                <p class="card-text">Доставляем заказы по всей России от 3 дней</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-green">✅ Гарантия качества</h5>
+                                <p class="card-text">Только оригинальные запчасти с гарантией</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title text-green">🔧 Техподдержка</h5>
+                                <p class="card-text">Консультации по подбору запчастей</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Контакты -->
+            <section class="contact-section bg-white py-5 rounded shadow-sm">
+                <h2 class="text-center text-green mb-5">Свяжитесь с нами</h2>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="contact-info">
+                            <div class="d-flex mb-4">
+                                <div class="contact-icon">📍</div>
+                                <div>
+                                    <h5>Адрес</h5>
+                                    <p>г. Курск, ул. Резиновая, 15</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-4">
+                                <div class="contact-icon">📞</div>
+                                <div>
+                                    <h5>Телефон</h5>
+                                    <p>+7 (4712) 12-34-56</p>
+                                </div>
+                            </div>
+                            <div class="d-flex mb-4">
+                                <div class="contact-icon">✉️</div>
+                                <div>
+                                    <h5>Email</h5>
+                                    <p>dublicat@agro.ru</p>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="contact-icon">🕒</div>
+                                <div>
+                                    <h5>Время работы</h5>
+                                    <p>Пн-Пт: 9:00 - 20:00<br>Сб-Вс: 10:00 - 18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="contact-form bg-light p-4 rounded">
+                            <form id="contactForm">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Ваше имя" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Ваш email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Тема сообщения">
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" placeholder="Ваше сообщение" rows="5" required></textarea>
+                                </div>
+                                
+                                <!-- Добавленные ссылки -->
+                                <div class="mb-3">
+                                    <a href="privacy-policy.html" class="text-decoration-none me-3">Обработка персональных данных</a>
+                                    <a href="document.docx" download class="text-decoration-none">Скачать документ</a>
+                                </div>
+
+                                <!-- Обновленный чекбокс -->
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="privacy" required>
+                                    <label class="form-check-label small" for="privacy">
+                                        Я согласен на обработку моих персональных данных в соответствии с 
+                                        <a href="privacy-policy.html" class="text-decoration-none">Политикой конфиденциальности</a>
+                                    </label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary-custom w-100">Отправить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+        <!-- Страница входа -->
+    <div id="login-page" class="page">
+        <div class="container my-5">
+            <div class="login-container mx-auto bg-white p-4 rounded shadow-sm">
+                <h2 class="text-center text-green mb-4">Вход в аккаунт</h2>
+                
+                <div class="form-switch text-center mb-4">
+                    <button class="btn active" onclick="switchForm('login')">Вход</button>
+                    <button class="btn" onclick="switchForm('register')">Регистрация</button>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Введите ваш email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Пароль</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Введите пароль" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom w-100 py-2">Войти</button>
+                </form>
+                
+                <form id="registerForm" style="display: none;">
+                    <div class="mb-3">
+                        <label for="regName" class="form-label">Имя</label>
+                        <input type="text" class="form-control" id="regName" placeholder="Введите ваше имя" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="regEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="regEmail" placeholder="Введите ваш email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="regPassword" class="form-label">Пароль</label>
+                        <input type="password" class="form-control" id="regPassword" placeholder="Придумайте пароль" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="regConfirmPassword" class="form-label">Подтвердите пароль</label>
+                        <input type="password" class="form-control" id="regConfirmPassword" placeholder="Повторите пароль" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom w-100 py-2">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница корзины -->
+    <div id="cart-page" class="page">
+        <div class="container my-5">
+            <div class="text-center mb-5">
+                <h1 class="text-green mb-2">🛒 Ваша корзина</h1>
+                <p class="text-muted">Товары, которые вы выбрали для покупки</p>
+            </div>
+
+            <div class="cart-items bg-white rounded shadow-sm p-4 mb-4">
+                <div class="cart-item d-flex align-items-center border-bottom pb-4 mb-4">
+                    <div class="cart-item-image me-4">🔧</div>
+                    <div class="flex-grow-1">
+                        <h5 class="cart-item-name">Топливный насос ТНВД</h5>
+                        <p class="cart-item-description text-muted mb-2">Для тракторов МТЗ-82</p>
+                        <div class="cart-item-price fw-bold text-green fs-5">15 490 ₽</div>
+                        <div class="quantity-controls d-flex align-items-center mt-2">
+                            <button class="btn btn-outline-secondary" onclick="updateQuantity('pump', -1)">-</button>
+                            <input type="number" class="form-control mx-2 text-center" style="width: 80px;" id="pump-quantity" value="1" min="1" onchange="updateCartTotal()">
+                            <button class="btn btn-outline-secondary" onclick="updateQuantity('pump', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-item d-flex align-items-center">
+                    <div class="cart-item-image me-4">🔩</div>
+                    <div class="flex-grow-1">
+                        <h5 class="cart-item-name">Комплект поршней</h5>
+                        <p class="cart-item-description text-muted mb-2">Для комбайна Дон-1500</p>
+                        <div class="cart-item-price fw-bold text-green fs-5">28 750 ₽</div>
+                        <div class="quantity-controls d-flex align-items-center mt-2">
+                            <button class="btn btn-outline-secondary" onclick="updateQuantity('pistons', -1)">-</button>
+                            <input type="number" class="form-control mx-2 text-center" style="width: 80px;" id="pistons-quantity" value="1" min="1" onchange="updateCartTotal()">
+                            <button class="btn btn-outline-secondary" onclick="updateQuantity('pistons', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-summary bg-white rounded shadow-sm p-4">
+                <div class="summary-row d-flex justify-content-between border-bottom pb-2 mb-2">
+                    <span>Промежуточный итог:</span>
+                    <span id="subtotal">44 240 ₽</span>
+                </div>
+                <div class="summary-row d-flex justify-content-between border-bottom pb-2 mb-2">
+                    <span>Доставка:</span>
+                    <span>Бесплатно</span>
+                </div>
+                <div class="summary-row d-flex justify-content-between fw-bold fs-5">
+                    <span>Итого к оплате:</span>
+                    <span id="total" class="text-green">44 240 ₽</span>
+                </div>
+                
+                <button class="btn btn-success w-100 py-3 mt-3" onclick="checkout()">✅ Купить</button>
+                <button class="btn btn-secondary w-100 mt-2" onclick="showPage('home-page')">← Вернуться в магазин</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница каталога -->
+    <div id="catalog-page" class="page">
+        <div class="container my-5">
+            <h1 class="text-center text-green mb-2">Каталог запчастей</h1>
+            <p class="text-center text-muted mb-5">Широкий выбор оригинальных запчастей для сельхозтехники</p>
+
+            <div class="row">
+                <!-- Боковая панель с категориями -->
+                <div class="col-lg-3 mb-4">
+                    <div class="categories-sidebar card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-green mb-3">Категории запчастей</h5>
+                            <nav class="categories-list">
+                                <div class="nav flex-column">
+                                    <div class="nav-item mb-2">
+                                        <a class="nav-link" href="#">🚜 Тракторы</a>
+                                        <div class="subcategory-list ms-3 mt-1">
+                                            <a class="nav-link" href="#">Топливные насосы</a>
+                                            <a class="nav-link" href="#">Фильтры</a>
+                                            <a class="nav-link" href="#">Стартеры</a>
+                                            <a class="nav-link" href="#">Генераторы</a>
+                                        </div>
+                                    </div>
+                                    <div class="nav-item mb-2">
+                                        <a class="nav-link" href="#">🌾 Комбайны</a>
+                                        <div class="subcategory-list ms-3 mt-1">
+                                            <a class="nav-link" href="#">Жатвенные части</a>
+                                            <a class="nav-link" href="#">Молотильные аппараты</a>
+                                            <a class="nav-link" href="#">Элеваторы</a>
+                                            <a class="nav-link" href="#">Режущие аппараты</a>
+                                        </div>
+                                    </div>
+                                    <div class="nav-item mb-2">
+                                        <a class="nav-link" href="#">⚙️ Двигатели</a>
+                                        <div class="subcategory-list ms-3 mt-1">
+                                            <a class="nav-link" href="#">Поршневые группы</a>
+                                            <a class="nav-link" href="#">Клапаны</a>
+                                            <a class="nav-link" href="#">Турбины</a>
+                                            <a class="nav-link" href="#">Топливная аппаратура</a>
+                                        </div>
+                                    </div>
+                                    <div class="nav-item mb-2">
+                                        <a class="nav-link" href="#">🔌 Электрооборудование</a>
+                                        <div class="subcategory-list ms-3 mt-1">
+                                            <a class="nav-link" href="#">Аккумуляторы</a>
+                                            <a class="nav-link" href="#">Провода</a>
+                                            <a class="nav-link" href="#">Датчики</a>
+                                            <a class="nav-link" href="#">Реле</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Сетка товаров -->
+                <div class="col-lg-9">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="product-card card shadow-sm h-100">
+                                <div class="product-image card-img-top">🔧</div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Топливный насос ТНВД</h5>
+                                    <p class="card-text flex-grow-1">Для тракторов МТЗ-82, МТЗ-80</p>
+                                    <div class="product-price fw-bold text-green fs-5 mb-3">15 490 ₽</div>
+                                    <button class="btn btn-primary-custom">В корзину</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="product-card card shadow-sm h-100">
+                                <div class="product-image card-img-top">⚙️</div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Комплект поршней</h5>
+                                    <p class="card-text flex-grow-1">Для двигателей Д-240, Д-243</p>
+                                    <div class="product-price fw-bold text-green fs-5 mb-3">12 800 ₽</div>
+                                    <button class="btn btn-primary-custom">В корзину</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="product-card card shadow-sm h-100">
+                                <div class="product-image card-img-top">🔩</div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Стартер 12V</h5>
+                                    <p class="card-text flex-grow-1">Универсальный для тракторов</p>
+                                    <div class="product-price fw-bold text-green fs-5 mb-3">8 900 ₽</div>
+                                    <button class="btn btn-primary-custom">В корзину</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="product-card card shadow-sm h-100">
+                                <div class="product-image card-img-top">⛽</div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">Топливный фильтр</h5>
+                                    <p class="card-text flex-grow-1">Для тракторов МТЗ, ЮМЗ</p>
+                                    <div class="product-price fw-bold text-green fs-5 mb-3">1 250 ₽</div>
+                                    <button class="btn btn-primary-custom">В корзину</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница производителей -->
+    <div id="brands-page" class="page">
+        <div class="container my-5">
+            <h1 class="text-center text-green mb-2">Производители сельхозтехники</h1>
+            <p class="text-center text-muted mb-5">Оригинальные запчасти от ведущих производителей</p>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="brand-card card shadow-sm text-center p-4">
+                        <div class="brand-logo">МТЗ</div>
+                        <h5 class="brand-name">Минский тракторный завод</h5>
+                        <p class="text-muted">Беларусь</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="brand-card card shadow-sm text-center p-4">
+                        <div class="brand-logo">JD</div>
+                        <h5 class="brand-name">John Deere</h5>
+                        <p class="text-muted">США</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="brand-card card shadow-sm text-center p-4">
+                        <div class="brand-logo">CH</div>
+                        <h5 class="brand-name">Case IH</h5>
+                        <p class="text-muted">США</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="brand-card card shadow-sm text-center p-4">
+                        <div class="brand-logo">NH</div>
+                        <h5 class="brand-name">New Holland</h5>
+                        <p class="text-muted">Италия/США</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="brand-card card shadow-sm text-center p-4">
+                        <div class="brand-logo">К</div>
+                        <h5 class="brand-name">Кировец</h5>
+                        <p class="text-muted">Россия</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="brand-card card shadow-sm text-center p-4">
+                        <div class="brand-logo">А</div>
+                        <h5 class="brand-name">Агромаш</h5>
+                        <p class="text-muted">Россия</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница доставки -->
+    <div id="delivery-page" class="page">
+        <div class="container my-5">
+            <h1 class="text-center text-green mb-2">Доставка</h1>
+            <p class="text-center text-muted mb-5">Удобные способы получения вашего заказа</p>
+
+            <div class="info-page bg-white rounded shadow-sm p-4">
+                <h2 class="text-green mb-4">Варианты доставки</h2>
+                <p>Мы предлагаем несколько способов доставки для вашего удобства:</p>
+                
+                <div class="row g-4 mt-3">
+                    <div class="col-md-6">
+                        <div class="delivery-option bg-light p-3 rounded border-start border-4 border-success">
+                            <h5 class="text-green">🚚 Курьерская доставка</h5>
+                            <p><strong>Срок:</strong> 1-3 дня</p>
+                            <p><strong>Стоимость:</strong> Бесплатно при заказе от 5000 ₽</p>
+                            <p>Доставка до двери в пределах города</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="delivery-option bg-light p-3 rounded border-start border-4 border-success">
+                            <h5 class="text-green">📦 Почта России</h5>
+                            <p><strong>Срок:</strong> 5-14 дней</p>
+                            <p><strong>Стоимость:</strong> Рассчитывается индивидуально</p>
+                            <p>Доставка в любой населенный пункт России</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="delivery-option bg-light p-3 rounded border-start border-4 border-success">
+                            <h5 class="text-green">🚛 Транспортная компания</h5>
+                            <p><strong>Срок:</strong> 3-7 дней</p>
+                            <p><strong>Стоимость:</strong> По тарифам ТК</p>
+                            <p>Доставка крупногабаритных товаров</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="delivery-option bg-light p-3 rounded border-start border-4 border-success">
+                            <h5 class="text-green">🏪 Самовывоз</h5>
+                            <p><strong>Срок:</strong> 1 день</p>
+                            <p><strong>Стоимость:</strong> Бесплатно</p>
+                            <p>Забрать заказ можно из нашего магазина по адресу: г. Курск, ул. Резиновая, 15</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 class="text-green mt-5 mb-3">Условия доставки</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Бесплатная доставка при заказе от 5000 ₽</li>
+                    <li class="list-group-item">Отслеживание заказа доступно в личном кабинете</li>
+                    <li class="list-group-item">Возможность срочной доставки за дополнительную плату</li>
+                    <li class="list-group-item">Проверка товара при получении</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Страница контактов -->
+    <div id="contacts-page" class="page">
+        <div class="container my-5">
+            <h1 class="text-center text-green mb-2">Контакты</h1>
+            <p class="text-center text-muted mb-5">Свяжитесь с нами удобным для вас способом</p>
+
+            <div class="info-page bg-white rounded shadow-sm p-4">
+                <h2 class="text-green mb-4">Наши контакты</h2>
+                <div class="contact-info">
+                    <div class="d-flex mb-4">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h5>Адрес офиса</h5>
+                            <p>г. Курск, ул. Резиновая, 15</p>
+                            <p class="text-muted small">Ближайшее мето: Технопарк</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="contact-icon">🏪</div>
+                        <div>
+                            <h5>Адрес склада</h5>
+                            <p>г. Курск, ул. 1-я Строительная, 8В</p>
+                            <p class="text-muted small">Для самовывоза заказов</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h5>Телефоны</h5>
+                            <p>+7 (4712) 12-34-56 - Основной</p>
+                            <p>+7 (4712) 23-45-67 - Техническая поддержка</p>
+                            <p>8 (800) 123-45-67 - Бесплатный по России</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h5>Email</h5>
+                            <p>info@agro.ru - Общие вопросы</p>
+                            <p>sales@agro.ru - Отдел продаж</p>
+                            <p>support@agro.ru - Техподдержка</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="contact-icon">🕒</div>
+                        <div>
+                            <h5>Время работы</h5>
+                            <p><strong>Офис и колл-центр:</strong><br>Пн-Пт: 9:00 - 20:00<br>Сб-Вс: 10:00 - 18:00</p>
+                            <p><strong>Склад самовывоза:</strong><br>Пн-Пт: 9:00 - 19:00<br>Сб: 10:00 - 17:00<br>Вс: выходной</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 class="text-green mt-5 mb-3">Реквизиты компании</h2>
+                <div class="bg-light p-3 rounded">
+                    <p><strong>ООО "Дубликат Агро"</strong></p>
+                    <p>ИНН: 1234567890</p>
+                    <p>КПП: 123456789</p>
+                    <p>ОГРН: 1234567890123</p>
+                    <p>Юридический адрес: г. Курск, ул. Резиновая, 15</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3 col-md-6">
+                    <h3>DublicatAgro</h3>
+                    <p class="text-white-50">Мы предлагаем широкий ассортимент качественных запчастей для сельхозтехники по доступным ценам с быстрой доставкой по всей России.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Категории</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('catalog-page')">Тракторы</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('catalog-page')">Комбайны</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('catalog-page')">Двигатели</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('catalog-page')">Электрооборудование</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('catalog-page')">Ходовая часть</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Полезные ссылки</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('home-page')">Главная</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('catalog-page')">Каталог</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('brands-page')">Производители</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('delivery-page')">Доставка и оплата</a></li>
+                        <li><a href="#" class="text-white-50 text-decoration-none" onclick="showPage('contacts-page')">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Контакты</h3>
+                    <ul class="list-unstyled text-white-50">
+                        <li>📞 +7 (4712) 12-34-56</li>
+                        <li>✉️ dublicat@agro.ru</li>
+                        <li>📍 г. Курск, ул. Резиновая, 15</li>
+                        <li>🕒 Пн-Пт: 9:00-20:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center pt-3 border-top border-white-10">
+                <p class="text-white-50">&copy; 2024 DublicatAgro. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Функции для переключения страниц
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Функции для формы входа/регистрации
+        function switchForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const buttons = document.querySelectorAll('.form-switch button');
+            
+            if (formType === 'login') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                buttons[0].classList.add('active');
+                buttons[1].classList.remove('active');
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                buttons[0].classList.remove('active');
+                buttons[1].classList.add('active');
+            }
+        }
+
+        // Обработка форм
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Вход выполнен успешно!');
+            showPage('home-page');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Регистрация прошла успешно!');
+            showPage('home-page');
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Сообщение отправлено! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+
+        // Функции для работы с корзиной
+        function updateQuantity(product, change) {
+            const input = document.getElementById(`${product}-quantity`);
+            let newValue = parseInt(input.value) + change;
+            
+            if (newValue < 1) newValue = 1;
+            
+            input.value = newValue;
+            updateCartTotal();
+        }
+
+        function updateCartTotal() {
+            const pumpPrice = 15490;
+            const pistonsPrice = 28750;
+            
+            const pumpQuantity = parseInt(document.getElementById('pump-quantity').value);
+            const pistonsQuantity = parseInt(document.getElementById('pistons-quantity').value);
+            
+            const subtotal = (pumpPrice * pumpQuantity) + (pistonsPrice * pistonsQuantity);
+            
+            document.getElementById('subtotal').textContent = subtotal.toLocaleString('ru-RU') + ' ₽';
+            document.getElementById('total').textContent = subtotal.toLocaleString('ru-RU') + ' ₽';
+            
+            // Обновляем счетчик в корзине
+            const totalItems = pumpQuantity + pistonsQuantity;
+            document.querySelector('.cart-count').textContent = totalItems;
+        }
+
+        // Функция оформления заказа
+        function checkout() {
+            alert('Спасибо за покупку! Ваш заказ оформлен.');
+            showPage('home-page');
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home-page');
+        });
+    </script>
+</body>
+</html>
