@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - DublicatAgro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header py-2">
+        <div class="container">
+            <div class="row align-items-center py-2">
+                <div class="col-md-3 col-6">
+                    <a href="index.html" class="d-flex align-items-center logo text-decoration-none">
+                        <div class="logo-img">DA</div>
+                        <span class="text-white fw-bold ms-2 fs-5">DublicatAgro</span>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-12 text-md-start text-center">
+                    <div class="header-contacts">
+                        <a href="tel:+74712123456" class="fs-5">8 (4712) 12-34-56</a>
+                        <span class="text-white-50 small d-block">Бесплатный звонок по России</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-6 text-end">
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="login.html" class="btn btn-outline-light-custom">Войти</a>
+                        <a href="cart.html" class="btn btn-primary-custom position-relative">
+                            Корзина
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Навигация -->
+            <nav class="main-nav mt-2">
+                <ul class="nav justify-content-center flex-md-row flex-column gap-md-3 gap-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
+                    <li class="nav-item"><a class="nav-link" href="brands.html">Производители</a></li>
+                    <li class="nav-item"><a class="nav-link" href="delivery.html">Доставка</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <div class="container my-5">
+        <h1 class="text-center text-green mb-2">Контакты</h1>
+        <p class="text-center text-muted mb-5">Свяжитесь с нами удобным для вас способом</p>
+
+        <div class="info-page bg-white rounded shadow-sm p-4">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2 class="text-green mb-4">📍 Наши контакты</h2>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="contact-card bg-light p-4 rounded h-100">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="contact-icon">🏢</div>
+                                    <h5 class="mb-0">Офис продаж</h5>
+                                </div>
+                                <p class="mb-2"><strong>Адрес:</strong> г. Курск, ул. Резиновая, 15</p>
+                                <p class="mb-2"><strong>Телефон:</strong> +7 (4712) 12-34-56</p>
+                                <p class="mb-2"><strong>Email:</strong> info@agro.ru</p>
+                                <p class="mb-0"><strong>Время работы:</strong> Пн-Пт: 9:00-20:00</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="contact-card bg-light p-4 rounded h-100">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="contact-icon">🏪</div>
+                                    <h5 class="mb-0">Склад самовывоза</h5>
+                                </div>
+                                <p class="mb-2"><strong>Адрес:</strong> г. Курск, ул. 1-я Строительная, 8В</p>
+                                <p class="mb-2"><strong>Телефон:</strong> +7 (4712) 23-45-67</p>
+                                <p class="mb-2"><strong>Email:</strong> warehouse@agro.ru</p>
+                                <p class="mb-0"><strong>Время работы:</strong> Пн-Пт: 9:00-19:00, Сб: 10:00-17:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-green mt-5 mb-4">📞 Телефоны отделов</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="department-contact p-3 border rounded">
+                                <h6>📋 Отдел продаж</h6>
+                                <p class="mb-1">+7 (4712) 12-34-56</p>
+                                <p class="mb-0 text-muted small">Консультации, заказы, цены</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="department-contact p-3 border rounded">
+                                <h6>🔧 Техническая поддержка</h6>
+                                <p class="mb-1">+7 (4712) 23-45-67</p>
+                                <p class="mb-0 text-muted small">Подбор запчастей, технические консультации</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="department-contact p-3 border rounded">
+                                <h6>🚚 Отдел доставки</h6>
+                                <p class="mb-1">+7 (4712) 34-56-78</p>
+                                <p class="mb-0 text-muted small">Отслеживание заказов, вопросы доставки</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="department-contact p-3 border rounded">
+                                <h6>💼 Бухгалтерия</h6>
+                                <p class="mb-1">+7 (4712) 45-67-89</p>
+                                <p class="mb-0 text-muted small">Документы, счета, оплата</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-green mt-5 mb-3">📧 Электронная почта</h2>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="email-contact p-3 bg-light rounded">
+                                <strong>Общие вопросы:</strong><br>
+                                <a href="mailto:info@agro.ru">info@agro.ru</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="email-contact p-3 bg-light rounded">
+                                <strong>Отдел продаж:</strong><br>
+                                <a href="mailto:sales@agro.ru">sales@agro.ru</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="email-contact p-3 bg-light rounded">
+                                <strong>Техподдержка:</strong><br>
+                                <a href="mailto:support@agro.ru">support@agro.ru</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="email-contact p-3 bg-light rounded">
+                                <strong>Руководство:</strong><br>
+                                <a href="mailto:director@agro.ru">director@agro.ru</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="contact-sidebar bg-light p-4 rounded">
+                        <h4 class="text-green mb-4">🕒 График работы</h4>
+                        
+                        <div class="mb-4">
+                            <h6>Офис и колл-центр:</h6>
+                            <div class="p-3 bg-white rounded">
+                                <p class="mb-1">Понедельник - Пятница: 9:00 - 20:00</p>
+                                <p class="mb-0">Суббота - Воскресенье: 10:00 - 18:00</p>
+                            </div>
+                        </div>
+                        
+                                               
+                        <div class="mb-4">
+                            <h6>Бесплатный номер:</h6>
+                            <a href="tel:88001234567" class="fs-5 text-green text-decoration-none">8 (800) 123-45-67</a>
+                            <p class="small text-muted">Звонок бесплатный по всей России</p>
+                        </div>
+                        
+                        <div class="alert alert-success">
+                            <strong>⚡ Быстрая связь!</strong><br>
+                            Мы отвечаем на emails в течение 2 часов, на звонки - сразу.
+                        </div>
+                    </div>
+
+                    <div class="requisites-card bg-white p-4 rounded shadow-sm mt-4">
+                        <h5 class="text-green mb-3">📄 Реквизиты компании</h5>
+                        <div class="small">
+                            <p class="mb-1"><strong>ООО "Дубликат Агро"</strong></p>
+                            <p class="mb-1">ИНН: 1234567890</p>
+                            <p class="mb-1">КПП: 123456789</p>
+                            <p class="mb-1">ОГРН: 1234567890123</p>
+                            <p class="mb-1">Расчетный счет: 40702810123456789012</p>
+                            <p class="mb-1">Банк: ПАО "Сбербанк"</p>
+                            <p class="mb-1">БИК: 044525225</p>
+                            <p class="mb-0">Корр. счет: 30101810400000000225</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма обратной связи -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="contact-form-section bg-light p-4 rounded">
+                        <h3 class="text-green mb-4">✉️ Напишите нам</h3>
+                        <form id="contactFormPage">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Ваше имя" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" placeholder="Ваш email" required>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" class="form-control" placeholder="Тема сообщения" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" placeholder="Ваше сообщение" rows="5" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="contactPrivacy" required>
+                                        <label class="form-check-label small" for="contactPrivacy">
+                                            Я согласен на обработку моих персональных данных
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary-custom px-4">Отправить сообщение</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3 col-md-6">
+                    <h3>DublicatAgro</h3>
+                    <p class="text-white-50">Мы предлагаем широкий ассортимент качественных запчастей для сельхозтехники по доступным ценам с быстрой доставкой по всей России.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Категории</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Тракторы</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Комбайны</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Двигатели</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Электрооборудование</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Полезные ссылки</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">Главная</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Каталог</a></li>
+                        <li><a href="brands.html" class="text-white-50 text-decoration-none">Производители</a></li>
+                        <li><a href="delivery.html" class="text-white-50 text-decoration-none">Доставка и оплата</a></li>
+                        <li><a href="contacts.html" class="text-white-50 text-decoration-none">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Контакты</h3>
+                    <ul class="list-unstyled text-white-50">
+                        <li>📞 +7 (4712) 12-34-56</li>
+                        <li>✉️ dublicat@agro.ru</li>
+                        <li>📍 г. Курск, ул. Резиновая, 15</li>
+                        <li>🕒 Пн-Пт: 9:00-20:00</li>
+                    </ul>
+                </div>
+            </div>
+             <!-- Юридические ссылки -->
+        <div class="legal-links text-center py-3 border-top border-white-10">
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+                <a href="privacy-policy.html" class="text-white-50 text-decoration-none small">
+                    🔒 Политика конфиденциальности
+                </a>
+                <span class="text-white-50 d-none d-md-block">•</span>
+                <a href="personal-data.html" class="text-white-50 text-decoration-none small">
+                    📄 Согласие на обработку персональных данных
+                </a>
+                <span class="text-white-50 d-none d-md-block">•</span>
+                <a href="terms-of-use.html" class="text-white-50 text-decoration-none small">
+                    📝 Пользовательское соглашение
+                </a>
+            </div>
+        </div>
+        
+        <div class="text-center pt-3">
+            <p class="text-white-50 mb-0">&copy; 2025 DublicatAgro. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

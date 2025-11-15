@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доставка и оплата - DublicatAgro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header py-2">
+        <div class="container">
+            <div class="row align-items-center py-2">
+                <div class="col-md-3 col-6">
+                    <a href="index.html" class="d-flex align-items-center logo text-decoration-none">
+                        <div class="logo-img">DA</div>
+                        <span class="text-white fw-bold ms-2 fs-5">DublicatAgro</span>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-12 text-md-start text-center">
+                    <div class="header-contacts">
+                        <a href="tel:+74712123456" class="fs-5">8 (4712) 12-34-56</a>
+                        <span class="text-white-50 small d-block">Бесплатный звонок по России</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-6 text-end">
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="login.html" class="btn btn-outline-light-custom">Войти</a>
+                        <a href="cart.html" class="btn btn-primary-custom position-relative">
+                            Корзина
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Навигация -->
+            <nav class="main-nav mt-2">
+                <ul class="nav justify-content-center flex-md-row flex-column gap-md-3 gap-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Каталог</a></li>
+                    <li class="nav-item"><a class="nav-link" href="brands.html">Производители</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="delivery.html">Доставка</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <div class="container my-5">
+        <h1 class="text-center text-green mb-2">Доставка и оплата</h1>
+        <p class="text-center text-muted mb-5">Удобные способы получения и оплаты вашего заказа</p>
+
+        <div class="info-page bg-white rounded shadow-sm p-4">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2 class="text-green mb-4">🚚 Варианты доставки</h2>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="delivery-option bg-light p-4 rounded border-start border-4 border-success h-100">
+                                <h5 class="text-green">Курьерская доставка</h5>
+                                <div class="mb-3">
+                                    <span class="badge bg-success">Срок: 1-3 дня</span>
+                                </div>
+                                <p><strong>Стоимость:</strong> Бесплатно при заказе от 5000 ₽</p>
+                                <p class="mb-0">Доставка до двери в пределах города Курск и области</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="delivery-option bg-light p-4 rounded border-start border-4 border-primary h-100">
+                                <h5 class="text-green">Почта России</h5>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Срок: 5-14 дней</span>
+                                </div>
+                                <p><strong>Стоимость:</strong> Рассчитывается индивидуально</p>
+                                <p class="mb-0">Доставка в любой населенный пункт России</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="delivery-option bg-light p-4 rounded border-start border-4 border-warning h-100">
+                                <h5 class="text-green">Транспортная компания</h5>
+                                <div class="mb-3">
+                                    <span class="badge bg-warning text-dark">Срок: 3-7 дней</span>
+                                </div>
+                                <p><strong>Стоимость:</strong> По тарифам ТК</p>
+                                <p class="mb-0">Доставка крупногабаритных товаров по всей России</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="delivery-option bg-light p-4 rounded border-start border-4 border-info h-100">
+                                <h5 class="text-green">Самовывоз</h5>
+                                <div class="mb-3">
+                                    <span class="badge bg-info">Срок: 1 день</span>
+                                </div>
+                                <p><strong>Стоимость:</strong> Бесплатно</p>
+                                <p class="mb-0">Забрать заказ можно из нашего магазина по адресу: г. Курск, ул. Резиновая, 15</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-green mt-5 mb-3">📋 Условия доставки</h2>
+                    <div class="accordion" id="deliveryAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    Бесплатная доставка
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#deliveryAccordion">
+                                <div class="accordion-body">
+                                    Бесплатная доставка действует при заказе от 5000 ₽ в пределах города Курск. Для других населенных пунктов условия уточняйте у менеджера.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    Отслеживание заказа
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#deliveryAccordion">
+                                <div class="accordion-body">
+                                    После отправки заказа мы предоставляем трек-номер для отслеживания. Вы можете отслеживать статус доставки в личном кабинете или по телефону.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    Срочная доставка
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#deliveryAccordion">
+                                <div class="accordion-body">
+                                    Возможность срочной доставки за дополнительную плату. Сроки и стоимость уточняйте у менеджера при оформлении заказа.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="delivery-info-sidebar bg-light p-4 rounded">
+                        <h4 class="text-green mb-4">📞 Нужна консультация?</h4>
+                        <div class="mb-4">
+                            <h6>Звоните нам:</h6>
+                            <a href="tel:+74712123456" class="fs-5 text-green text-decoration-none">8 (4712) 12-34-56</a>
+                            <p class="small text-muted">Бесплатный звонок по России</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h6>Пишите:</h6>
+                            <a href="mailto:delivery@agro.ru" class="text-decoration-none">delivery@agro.ru</a>
+                            <p class="small text-muted">Отдел доставки</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h6>Время работы:</h6>
+                            <p class="mb-1">Пн-Пт: 9:00 - 20:00</p>
+                            <p class="mb-0">Сб-Вс: 10:00 - 18:00</p>
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <strong>Важно!</strong> При получении заказа обязательно проверяйте комплектацию и целостность товара.
+                        </div>
+                        
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3 col-md-6">
+                    <h3>DublicatAgro</h3>
+                    <p class="text-white-50">Мы предлагаем широкий ассортимент качественных запчастей для сельхозтехники по доступным ценам с быстрой доставкой по всей России.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Категории</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Тракторы</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Комбайны</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Двигатели</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Электрооборудование</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Полезные ссылки</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">Главная</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Каталог</a></li>
+                        <li><a href="brands.html" class="text-white-50 text-decoration-none">Производители</a></li>
+                        <li><a href="delivery.html" class="text-white-50 text-decoration-none">Доставка и оплата</a></li>
+                        <li><a href="contacts.html" class="text-white-50 text-decoration-none">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Контакты</h3>
+                    <ul class="list-unstyled text-white-50">
+                        <li>📞 +7 (4712) 12-34-56</li>
+                        <li>✉️ dublicat@agro.ru</li>
+                        <li>📍 г. Курск, ул. Резиновая, 15</li>
+                        <li>🕒 Пн-Пт: 9:00-20:00</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Юридические ссылки -->
+        <div class="legal-links text-center py-3 border-top border-white-10">
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+                <a href="privacy-policy.html" class="text-white-50 text-decoration-none small">
+                    🔒 Политика конфиденциальности
+                </a>
+                <span class="text-white-50 d-none d-md-block">•</span>
+                <a href="personal-data.html" class="text-white-50 text-decoration-none small">
+                    📄 Согласие на обработку персональных данных
+                </a>
+                <span class="text-white-50 d-none d-md-block">•</span>
+                <a href="terms-of-use.html" class="text-white-50 text-decoration-none small">
+                    📝 Пользовательское соглашение
+                </a>
+            </div>
+        </div>
+        
+        <div class="text-center pt-3">
+            <p class="text-white-50 mb-0">&copy; 2025 DublicatAgro. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

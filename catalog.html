@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог запчастей - DublicatAgro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        .product-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .product-image {
+            height: 200px;
+            object-fit: contain;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        .product-image-list {
+            height: 120px;
+            width: 120px;
+            object-fit: contain;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+        .card-text {
+            flex-grow: 1;
+        }
+        .list-view .product-card {
+            flex-direction: row;
+            align-items: center;
+        }
+        .list-view .product-image-container {
+            flex: 0 0 150px;
+        }
+        .stock-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .category-icon {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header py-2">
+        <div class="container">
+            <div class="row align-items-center py-2">
+                <div class="col-md-3 col-6">
+                    <a href="index.html" class="d-flex align-items-center logo text-decoration-none">
+                        <div class="logo-img">DA</div>
+                        <span class="text-white fw-bold ms-2 fs-5">DublicatAgro</span>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-12 text-md-start text-center">
+                    <div class="header-contacts">
+                        <a href="tel:+74712123456" class="fs-5">8 (4712) 12-34-56</a>
+                        <span class="text-white-50 small d-block">Бесплатный звонок по России</span>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-6 text-end">
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="login.html" class="btn btn-outline-light-custom">Войти</a>
+                        <a href="cart.html" class="btn btn-primary-custom position-relative">
+                            Корзина
+                            <span class="cart-count" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="main-nav mt-2">
+                <ul class="nav justify-content-center flex-md-row flex-column gap-md-3 gap-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="catalog.html">Каталог</a></li>
+                    <li class="nav-item"><a class="nav-link" href="brands.html">Производители</a></li>
+                    <li class="nav-item"><a class="nav-link" href="delivery.html">Доставка</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент каталога -->
+    <div class="container my-5">
+        <h1 class="text-center text-green mb-2">Каталог запчастей</h1>
+        <p class="text-center text-muted mb-5">Широкий выбор оригинальных запчастей для сельхозтехники</p>
+
+        <!-- Категории товаров с иконками -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="mb-4">Категории товаров</h3>
+                <div class="row g-4">
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <a href="#engine" class="text-decoration-none text-dark">
+                            <div class="card category-card text-center p-3 h-100">
+                                <div class="category-icon">
+                                    <i class="bi bi-gear"></i>
+                                </div>
+                                <h6>Двигатель</h6>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <a href="#electrical" class="text-decoration-none text-dark">
+                            <div class="card category-card text-center p-3 h-100">
+                                <div class="category-icon">
+                                    <i class="bi bi-lightning-charge"></i>
+                                </div>
+                                <h6>Электрика</h6>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <a href="#filters" class="text-decoration-none text-dark">
+                            <div class="card category-card text-center p-3 h-100">
+                                <div class="category-icon">
+                                    <i class="bi bi-funnel"></i>
+                                </div>
+                                <h6>Фильтры</h6>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <a href="#brakes" class="text-decoration-none text-dark">
+                            <div class="card category-card text-center p-3 h-100">
+                                <div class="category-icon">
+                                    <i class="bi bi-disc"></i>
+                                </div>
+                                <h6>Тормоза</h6>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <a href="#transmission" class="text-decoration-none text-dark">
+                            <div class="card category-card text-center p-3 h-100">
+                                <div class="category-icon">
+                                    <i class="bi bi-gear-wide"></i>
+                                </div>
+                                <h6>Привод</h6>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-6">
+                        <a href="#hydraulics" class="text-decoration-none text-dark">
+                            <div class="card category-card text-center p-3 h-100">
+                                <div class="category-icon">
+                                    <i class="bi bi-droplet"></i>
+                                </div>
+                                <h6>Гидравлика</h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Фильтры и сортировка -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="filters-card card shadow-sm p-3">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Цена, ₽</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="minPrice" placeholder="От" min="0">
+                                <input type="number" class="form-control" id="maxPrice" placeholder="До" min="0">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Производитель</label>
+                            <select class="form-select" id="brandFilter">
+                                <option value="">Все производители</option>
+                                <option value="МТЗ">МТЗ</option>
+                                <option value="John Deere">John Deere</option>
+                                <option value="Case IH">Case IH</option>
+                                <option value="Bosch">Bosch</option>
+                                <option value="MANN">MANN</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Категория</label>
+                            <select class="form-select" id="categoryFilter">
+                                <option value="">Все категории</option>
+                                <option value="Двигатель">Двигатель</option>
+                                <option value="Электрика">Электрика</option>
+                                <option value="Фильтры">Фильтры</option>
+                                <option value="Тормоза">Тормоза</option>
+                                <option value="Привод">Привод</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-primary-custom me-2" onclick="applyFilters()">Применить фильтры</button>
+                            <button class="btn btn-outline-secondary" onclick="resetFilters()">Сбросить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="sort-card card shadow-sm p-3">
+                    <label class="form-label">Сортировка</label>
+                    <select class="form-select" id="sortSelect" onchange="sortProducts()">
+                        <option value="name-asc">По названию (А-Я)</option>
+                        <option value="name-desc">По названию (Я-А)</option>
+                        <option value="price-asc">По цене (возрастание)</option>
+                        <option value="price-desc">По цене (убывание)</option>
+                        <option value="popular">По популярности</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Результаты поиска -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5>Найдено товаров: <span id="productCount">12</span></h5>
+            <div class="view-options btn-group">
+                <button class="btn btn-outline-secondary active" onclick="changeView('grid')">
+                    <i class="bi bi-grid-3x3-gap"></i> Сетка
+                </button>
+                <button class="btn btn-outline-secondary" onclick="changeView('list')">
+                    <i class="bi bi-list"></i> Список
+                </button>
+            </div>
+        </div>
+
+        <!-- Сетка товаров -->
+        <div class="row g-4" id="productsGrid">
+            <!-- Товар 1 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="card product-card shadow-sm h-100">
+                    <span class="badge bg-success stock-badge">В наличии</span>
+                    <img src="https://avatars.mds.yandex.net/get-mpic/12424084/2a0000018f5faaa037f190d9d6199fba6acf/orig" class="card-img-top product-image" alt="Фильтр масляный МТЗ">
+                    <div class="card-body">
+                        <h5 class="card-title">Фильтр масляный МТЗ-82</h5>
+                        <p class="card-text text-muted">Оригинальный масляный фильтр для тракторов МТЗ-80/82.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="h5 mb-0 text-green">1 500 ₽</span>
+                            <button class="btn btn-primary-custom btn-sm">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Товар 2 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="card product-card shadow-sm h-100">
+                    <span class="badge bg-warning text-dark stock-badge">Мало</span>
+                    <img src="https://a.allegroimg.com/original/11bd9a/260edf7d44b7a49034db4abdc37e/Klocki-hamulcowe-John-Deere-Gator-TX-Zestaw-Przod-Tyl-Oryginal" class="card-img-top product-image" alt="Тормозные колодки John Deere">
+                    <div class="card-body">
+                        <h5 class="card-title">Тормозные колодки John Deere</h5>
+                        <p class="card-text text-muted">Тормозные колодки для комбайнов John Deere серии 1000.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="h5 mb-0 text-green">3 200 ₽</span>
+                            <button class="btn btn-primary-custom btn-sm">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Товар 3 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="card product-card shadow-sm h-100">
+                    <span class="badge bg-success stock-badge">В наличии</span>
+                    <img src="https://avatars.mds.yandex.net/get-mpic/5221935/img_id5042213750753896636.jpeg/orig" class="card-img-top product-image" alt="Свеча зажигания Bosch">
+                    <div class="card-body">
+                        <h5 class="card-title">Свеча зажигания Bosch</h5>
+                        <p class="card-text text-muted">Свеча зажигания для дизельных двигателей сельхозтехники.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="h5 mb-0 text-green">450 ₽</span>
+                            <button class="btn btn-primary-custom btn-sm">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Товар 4 -->
+            <div class="col-md-4 col-lg-3">
+                <div class="card product-card shadow-sm h-100">
+                    <span class="badge bg-success stock-badge">В наличии</span>
+                    <img src="https://avatars.mds.yandex.net/get-mpic/4880759/img_id1210792505689426740.jpeg/orig" class="card-img-top product-image" alt="Воздушный фильтр MANN">
+                    <div class="card-body">
+                        <h5 class="card-title">Воздушный фильтр MANN</h5>
+                        <p class="card-text text-muted">Воздушный фильтр для грузовиков и сельхозтехники.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <span class="h5 mb-0 text-green">2 100 ₽</span>
+                            <button class="btn btn-primary-custom btn-sm">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <!-- Пагинация -->
+        <nav aria-label="Page navigation" class="mt-5">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Назад</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Вперед</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Футер -->
+    <footer class="text-white py-5">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3 col-md-6">
+                    <h3>DublicatAgro</h3>
+                    <p class="text-white-50">Мы предлагаем широкий ассортимент качественных запчастей для сельхозтехники по доступным ценам с быстрой доставкой по всей России.</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Категории</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Тракторы</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Комбайны</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Двигатели</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Электрооборудование</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Полезные ссылки</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50 text-decoration-none">Главная</a></li>
+                        <li><a href="catalog.html" class="text-white-50 text-decoration-none">Каталог</a></li>
+                        <li><a href="brands.html" class="text-white-50 text-decoration-none">Производители</a></li>
+                        <li><a href="delivery.html" class="text-white-50 text-decoration-none">Доставка и оплата</a></li>
+                        <li><a href="contacts.html" class="text-white-50 text-decoration-none">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3>Контакты</h3>
+                    <ul class="list-unstyled text-white-50">
+                        <li>📞 +7 (4712) 12-34-56</li>
+                        <li>✉️ dublicat@agro.ru</li>
+                        <li>📍 г. Курск, ул. Резиновая, 15</li>
+                        <li>🕒 Пн-Пт: 9:00-20:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="legal-links text-center py-3 border-top border-white-10">
+                <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+                    <a href="privacy-policy.html" class="text-white-50 text-decoration-none small">
+                        🔒 Политика конфиденциальности
+                    </a>
+                    <span class="text-white-50 d-none d-md-block">•</span>
+                    <a href="personal-data.html" class="text-white-50 text-decoration-none small">
+                        📄 Согласие на обработку персональных данных
+                    </a>
+                    <span class="text-white-50 d-none d-md-block">•</span>
+                    <a href="terms-of-use.html" class="text-white-50 text-decoration-none small">
+                        📝 Пользовательское соглашение
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center pt-3">
+                <p class="text-white-50 mb-0">&copy; 2025 DublicatAgro. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Функция для смены вида отображения
+        function changeView(viewType) {
+            const productsGrid = document.getElementById('productsGrid');
+            const viewButtons = document.querySelectorAll('.view-options .btn');
+            
+            viewButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            
+            if (viewType === 'list') {
+                productsGrid.classList.add('list-view');
+                productsGrid.classList.remove('row-cols-md-4', 'row-cols-lg-3');
+                
+                // Обновляем карточки для списка
+                const cards = productsGrid.querySelectorAll('.col-md-4');
+                cards.forEach(card => {
+                    card.classList.remove('col-md-4', 'col-lg-3');
+                    card.classList.add('col-12', 'mb-3');
+                    
+                    const productCard = card.querySelector('.product-card');
+                    productCard.classList.add('d-flex');
+                    
+                    const img = productCard.querySelector('.product-image');
+                    if (img) {
+                        img.classList.remove('card-img-top');
+                        img.classList.add('product-image-list', 'm-3');
+                    }
+                });
+            } else {
+                productsGrid.classList.remove('list-view');
+                productsGrid.classList.add('row-cols-md-4', 'row-cols-lg-3');
+                
+                // Возвращаем карточки к сетке
+                const cards = productsGrid.querySelectorAll('.col-12');
+                cards.forEach(card => {
+                    card.classList.remove('col-12', 'mb-3');
+                    card.classList.add('col-md-4', 'col-lg-3');
+                    
+                    const productCard = card.querySelector('.product-card');
+                    productCard.classList.remove('d-flex');
+                    
+                    const img = productCard.querySelector('.product-image-list');
+                    if (img) {
+                        img.classList.remove('product-image-list', 'm-3');
+                        img.classList.add('card-img-top');
+                    }
+                });
+            }
+        }
+        
+        // Функции для фильтрации и сортировки (заглушки)
+        function applyFilters() {
+            alert('Фильтры применены!');
+        }
+        
+        function resetFilters() {
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('brandFilter').value = '';
+            document.getElementById('categoryFilter').value = '';
+        }
+        
+        function sortProducts() {
+            const sortSelect = document.getElementById('sortSelect');
+            alert('Сортировка изменена: ' + sortSelect.options[sortSelect.selectedIndex].text);
+        }
+    </script>
+</body>
+</html>
