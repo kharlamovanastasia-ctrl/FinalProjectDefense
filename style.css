@@ -1,4 +1,3 @@
-/* Кастомные стили поверх Bootstrap */
 :root {
     --primary-green: #2e7d32;
     --secondary-green: #4caf50;
@@ -9,15 +8,6 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     padding-top: 100px;
-}
-
-.page {
-    display: none;
-    min-height: 80vh;
-}
-
-.page.active {
-    display: block;
 }
 
 /* Шапка */
@@ -61,11 +51,12 @@ body {
     transition: background 0.3s ease;
 }
 
-.main-nav .nav-link:hover {
+.main-nav .nav-link:hover,
+.main-nav .nav-link.active {
     background: rgba(255,255,255,0.2);
 }
 
-/* Главная страница - Hero секция */
+/* Hero секция */
 .hero {
     background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
                 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234caf50" width="1200" height="600"/></svg>');
@@ -85,27 +76,32 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Карточки продуктов */
-.product-card, .brand-card {
-    transition: transform 0.3s ease;
+/* Карточки */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
 }
 
-.product-card:hover, .brand-card:hover {
+.product-card:hover {
     transform: translateY(-5px);
-}
-
-.product-image, .brand-logo, .cart-item-image {
-    background: #e8f5e9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary-green);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
 }
 
 .product-image {
     height: 200px;
-    font-size: 3rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
 }
 
 .brand-logo {
@@ -114,13 +110,11 @@ body {
     border-radius: 50%;
     font-size: 2rem;
     margin: 0 auto 1rem;
-}
-
-.cart-item-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
-    font-size: 2rem;
+    background: #e8f5e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-green);
 }
 
 /* Контакты */
@@ -159,7 +153,7 @@ footer {
     background: var(--accent-orange);
 }
 
-/* Кастомные кнопки */
+/* Кнопки */
 .btn-primary-custom {
     background: var(--accent-orange);
     border-color: var(--accent-orange);
@@ -182,59 +176,6 @@ footer {
     color: white;
 }
 
-/* Категории */
-.categories-sidebar {
-    position: sticky;
-    top: 120px;
-}
-
-.categories-list .nav-link {
-    color: #333;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.categories-list .nav-link:hover {
-    background: #e8f5e9;
-    color: var(--primary-green);
-    padding-left: 20px !important;
-}
-
-.subcategory-list {
-    border-left: 2px solid #e8f5e9;
-    padding-left: 1rem;
-}
-
-.subcategory-list .nav-link {
-    font-size: 0.9rem;
-    font-weight: normal;
-    color: #666;
-    padding: 5px 10px;
-}
-
-.subcategory-list .nav-link:hover {
-    background: #f8f9fa;
-    color: var(--primary-green);
-}
-
-/* Формы */
-.login-container {
-    max-width: 400px;
-}
-
-.form-switch .btn {
-    border: none;
-    padding: 10px 20px;
-    color: #666;
-    border-bottom: 2px solid transparent;
-}
-
-.form-switch .btn.active {
-    color: var(--secondary-green);
-    border-bottom-color: var(--secondary-green);
-    font-weight: bold;
-}
-
 /* Корзина */
 .cart-count {
     position: absolute;
@@ -251,25 +192,208 @@ footer {
     justify-content: center;
 }
 
-/* Адаптивность - дополнительные стили */
-@media (max-width: 1200px) {
-    .hero h1 {
-        font-size: 2.5rem;
-    }
-    .hero .lead {
-        font-size: 1.3rem;
-    }
+/* Стили для каталога */
+.filters-card, .sort-card {
+    background: white;
+    border: none;
+    border-radius: 10px;
 }
 
-@media (max-width: 992px) {
+.loading-spinner {
+    display: none;
+    text-align: center;
+    padding: 40px;
+}
+
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #e53935;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--primary-green);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* Стили для логотипов производителей */
+.brand-logo {
+    width: 150px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.brand-logo-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.brand-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+}
+
+.brand-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.brand-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.brand-products {
+    font-size: 0.9rem;
+}
+
+/* Стили для страниц политик */
+.policy-page {
+    line-height: 1.6;
+}
+
+.policy-content h3 {
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--primary-green);
+    padding-bottom: 0.5rem;
+}
+
+.policy-content ul {
+    padding-left: 1.5rem;
+}
+
+.policy-content li {
+    margin-bottom: 0.5rem;
+}
+
+/* Стили для юридических ссылок в футере */
+.legal-links {
+    border-top: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.legal-links a {
+    transition: color 0.3s ease;
+}
+
+.legal-links a:hover {
+    color: white !important;
+}
+
+/* Hero секция с меньшим затемнением и размытием */
+.hero {
+    position: relative;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), 
+                url('https://png.pngtree.com/thumb_back/fw800/background/20230524/pngtree-green-ferocious-tractor-rides-across-a-field-image_2677549.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 120px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    filter: blur(3px) brightness(0.9);
+    z-index: 1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero .lead {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    font-weight: 300;
+}
+
+.hero .btn {
+    position: relative;
+    z-index: 3;
+    font-weight: 600;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+
+/* Адаптивность для Hero */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 0;
+        background-attachment: scroll;
+    }
+    
     .hero h1 {
         font-size: 2.2rem;
     }
+    
     .hero .lead {
         font-size: 1.2rem;
     }
+    
+    .hero::before {
+        filter: blur(4px) brightness(0.8);
+    }
 }
 
+@media (max-width: 576px) {
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero .lead {
+        font-size: 1.1rem;
+    }
+}
+
+/* Адаптивность */
 @media (max-width: 768px) {
     body {
         padding-top: 140px;
@@ -280,51 +404,23 @@ footer {
         margin: 10px 0;
     }
     
-    .categories-sidebar {
-        position: static;
-        margin-bottom: 2rem;
-    }
-    
-    /* Адаптация hero-секции для мобильных */
     .hero {
         padding: 60px 0;
     }
     
     .hero h1 {
         font-size: 1.8rem;
-        margin-bottom: 1rem;
     }
     
     .hero .lead {
         font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .hero .btn {
-        font-size: 1rem;
-        padding: 10px 20px;
-    }
-}
-
-@media (max-width: 576px) {
-    .hero {
-        padding: 40px 0;
-    }
-    
-    .hero h1 {
-        font-size: 1.5rem;
-    }
-    
-    .hero .lead {
-        font-size: 1rem;
-    }
-    
-    .hero .btn {
-        font-size: 0.9rem;
-        padding: 8px 16px;
     }
 }
 
 .text-green {
     color: var(--primary-green) !important;
+}
+
+.text-orange {
+    color: var(--accent-orange) !important;
 }
