@@ -408,74 +408,283 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-        // Функция для смены вида отображения
-        function changeView(viewType) {
-            const productsGrid = document.getElementById('productsGrid');
-            const viewButtons = document.querySelectorAll('.view-options .btn');
+    // Данные товаров
+    const products = [
+        {
+            id: "123",
+            name: "Фильтр масляный МТЗ-82",
+            description: "Оригинальный масляный фильтр для тракторов МТЗ-80/82.",
+            price: 1500,
+            image: "https://avatars.mds.yandex.net/get-mpic/12424084/2a0000018f5faaa037f190d9d6199fba6acf/orig",
+            brand: "МТЗ",
+            category: "Фильтры",
+            stock: "В наличии",
+            popularity: 95
+        },
+        {
+            id: "234",
+            name: "Тормозные колодки John Deere",
+            description: "Тормозные колодки для комбайнов John Deere серии 1000.",
+            price: 3200,
+            image: "https://a.allegroimg.com/original/11bd9a/260edf7d44b7a49034db4abdc37e/Klocki-hamulcowe-John-Deere-Gator-TX-Zestaw-Przod-Tyl-Oryginal",
+            brand: "John Deere",
+            category: "Тормоза",
+            stock: "Мало",
+            popularity: 87
+        },
+        {
+            id: "345",
+            name: "Свеча зажигания Bosch",
+            description: "Свеча зажигания для дизельных двигателей сельхозтехники.",
+            price: 450,
+            image: "https://avatars.mds.yandex.net/get-mpic/5221935/img_id5042213750753896636.jpeg/orig",
+            brand: "Bosch",
+            category: "Электрика",
+            stock: "В наличии",
+            popularity: 92
+        },
+        {
+            id: "567",
+            name: "Воздушный фильтр MANN",
+            description: "Воздушный фильтр для грузовиков и сельхозтехники.",
+            price: 2100,
+            image: "https://avatars.mds.yandex.net/get-mpic/4880759/img_id1210792505689426740.jpeg/orig",
+            brand: "MANN",
+            category: "Фильтры",
+            stock: "В наличии",
+            popularity: 78
+        },
+        {
+            id: "678",
+            name: "Ремень ГРМ Case IH",
+            description: "Ремень газораспределительного механизма для комбайнов Case IH.",
+            price: 3800,
+            image: "https://m.media-amazon.com/images/I/51iH5ODEU6L.jpg",
+            brand: "Case IH",
+            category: "Двигатель",
+            stock: "В наличии",
+            popularity: 83
+        },
+        {
+            id: "789",
+            name: "Масло моторное Shell",
+            description: "Синтетическое моторное масло для дизельных двигателей.",
+            price: 2800,
+            image: "https://avatars.mds.yandex.net/get-mpic/5297001/img_id3919447073823249370.jpeg/orig",
+            brand: "Shell",
+            category: "Двигатель",
+            stock: "В наличии",
+            popularity: 96
+        },
+        {
+            id: "890",
+            name: "Аккумулятор Varta",
+            description: "Мощный аккумулятор для сельскохозяйственной техники.",
+            price: 5200,
+            image: "https://images.apex.ru/products/varta/560127054_1.jpg",
+            brand: "Varta",
+            category: "Электрика",
+            stock: "Мало",
+            popularity: 75
+        },
+        {
+            id: "901",
+            name: "ШРУС МТЗ",
+            description: "Шарнир равных угловых скоростей для тракторов МТЗ.",
+            price: 4100,
+            image: "https://avatars.mds.yandex.net/get-mpic/5235907/2a00000195732ca21ff1870be651770e500f/orig",
+            brand: "МТЗ",
+            category: "Привод",
+            stock: "В наличии",
+            popularity: 69
+        }
+    ];
+
+    let currentView = 'grid';
+    let filteredProducts = [...products];
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        renderProducts(filteredProducts);
+        updateProductCount();
+    });
+
+    // Функция для отображения товаров
+    function renderProducts(productsArray) {
+        const productsGrid = document.getElementById('productsGrid');
+        productsGrid.innerHTML = '';
+
+        productsArray.forEach(product => {
+            const col = document.createElement('div');
             
-            viewButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            event.target.classList.add('active');
-            
-            if (viewType === 'list') {
-                productsGrid.classList.add('list-view');
-                productsGrid.classList.remove('row-cols-md-4', 'row-cols-lg-3');
-                
-                // Обновляем карточки для списка
-                const cards = productsGrid.querySelectorAll('.col-md-4');
-                cards.forEach(card => {
-                    card.classList.remove('col-md-4', 'col-lg-3');
-                    card.classList.add('col-12', 'mb-3');
-                    
-                    const productCard = card.querySelector('.product-card');
-                    productCard.classList.add('d-flex');
-                    
-                    const img = productCard.querySelector('.product-image');
-                    if (img) {
-                        img.classList.remove('card-img-top');
-                        img.classList.add('product-image-list', 'm-3');
-                    }
-                });
+            if (currentView === 'grid') {
+                col.className = 'col-md-4 col-lg-3';
+                col.innerHTML = createProductCard(product);
             } else {
-                productsGrid.classList.remove('list-view');
-                productsGrid.classList.add('row-cols-md-4', 'row-cols-lg-3');
-                
-                // Возвращаем карточки к сетке
-                const cards = productsGrid.querySelectorAll('.col-12');
-                cards.forEach(card => {
-                    card.classList.remove('col-12', 'mb-3');
-                    card.classList.add('col-md-4', 'col-lg-3');
-                    
-                    const productCard = card.querySelector('.product-card');
-                    productCard.classList.remove('d-flex');
-                    
-                    const img = productCard.querySelector('.product-image-list');
-                    if (img) {
-                        img.classList.remove('product-image-list', 'm-3');
-                        img.classList.add('card-img-top');
-                    }
-                });
+                col.className = 'col-12 mb-3';
+                col.innerHTML = createProductList(product);
             }
-        }
+
+            productsGrid.appendChild(col);
+        });
+
+        // Добавляем обработчики событий для новых кнопок
+        setTimeout(() => {
+            initializeCartButtons();
+        }, 100);
+    }
+
+    // Создание карточки товара для сетки
+    function createProductCard(product) {
+        const badgeClass = product.stock === 'В наличии' ? 'bg-success' : 'bg-warning text-dark';
         
-        // Функции для фильтрации и сортировки (заглушки)
-        function applyFilters() {
-            alert('Фильтры применены!');
-        }
+        return `
+            <div class="card product-card shadow-sm h-100">
+                <span class="badge ${badgeClass} stock-badge">${product.stock}</span>
+                <img src="${product.image}" class="card-img-top product-image" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200?text=Нет+изображения'">
+                <div class="card-body">
+                    <h5 class="card-title">${product.name}</h5>
+                    <p class="card-text text-muted">${product.description}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="h5 mb-0 text-green">${product.price.toLocaleString()} ₽</span>
+                        <button class="btn btn-primary add-to-cart" 
+                            data-product-id="${product.id}" 
+                            data-product-name="${product.name}" 
+                            data-product-price="${product.price}"
+                            data-product-image="${product.image}">
+                            Добавить в корзину
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Создание элемента списка для линейного отображения
+    function createProductList(product) {
+        const badgeClass = product.stock === 'В наличии' ? 'bg-success' : 'bg-warning text-dark';
         
-        function resetFilters() {
-            document.getElementById('minPrice').value = '';
-            document.getElementById('maxPrice').value = '';
-            document.getElementById('brandFilter').value = '';
-            document.getElementById('categoryFilter').value = '';
-        }
+        return `
+            <div class="card product-card shadow-sm h-100 d-flex flex-row">
+                <div class="product-image-container flex-shrink-0">
+                    <img src="${product.image}" class="product-image-list" alt="${product.name}" onerror="this.src='https://via.placeholder.com/150x150?text=Нет+фото'">
+                </div>
+                <div class="card-body d-flex flex-column flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title">${product.name}</h5>
+                            <span class="badge ${badgeClass}">${product.stock}</span>
+                        </div>
+                        <span class="h5 mb-0 text-green">${product.price.toLocaleString()} ₽</span>
+                    </div>
+                    <p class="card-text text-muted mt-2">${product.description}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <small class="text-muted">Бренд: ${product.brand} | Категория: ${product.category}</small>
+                        <button class="btn btn-primary add-to-cart" 
+                            data-product-id="${product.id}" 
+                            data-product-name="${product.name}" 
+                            data-product-price="${product.price}"
+                            data-product-image="${product.image}">
+                            Добавить в корзину
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Функция для смены вида отображения
+    function changeView(viewType) {
+        currentView = viewType;
+        const viewButtons = document.querySelectorAll('.view-options .btn');
         
-        function sortProducts() {
-            const sortSelect = document.getElementById('sortSelect');
-            alert('Сортировка изменена: ' + sortSelect.options[sortSelect.selectedIndex].text);
+        viewButtons.forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        event.target.classList.add('active');
+        
+        renderProducts(filteredProducts);
+    }
+
+    // Функция применения фильтров
+    function applyFilters() {
+        const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
+        const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
+        const brand = document.getElementById('brandFilter').value;
+        const category = document.getElementById('categoryFilter').value;
+
+        filteredProducts = products.filter(product => {
+            const priceMatch = product.price >= minPrice && product.price <= maxPrice;
+            const brandMatch = !brand || product.brand === brand;
+            const categoryMatch = !category || product.category === category;
+
+            return priceMatch && brandMatch && categoryMatch;
+        });
+
+        // Применяем текущую сортировку
+        const sortSelect = document.getElementById('sortSelect');
+        sortProducts(sortSelect.value);
+
+        updateProductCount();
+    }
+
+    // Функция сброса фильтров
+    function resetFilters() {
+        document.getElementById('minPrice').value = '';
+        document.getElementById('maxPrice').value = '';
+        document.getElementById('brandFilter').value = '';
+        document.getElementById('categoryFilter').value = '';
+        document.getElementById('sortSelect').value = 'name-asc';
+
+        filteredProducts = [...products];
+        renderProducts(filteredProducts);
+        updateProductCount();
+    }
+
+    // Функция сортировки товаров
+    function sortProducts(sortValue = null) {
+        if (!sortValue) {
+            sortValue = document.getElementById('sortSelect').value;
         }
-    </script>
+
+        switch(sortValue) {
+            case 'name-asc':
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'name-desc':
+                filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'price-asc':
+                filteredProducts.sort((a, b) => a.price - b.price);
+                break;
+            case 'price-desc':
+                filteredProducts.sort((a, b) => b.price - a.price);
+                break;
+            case 'popular':
+                filteredProducts.sort((a, b) => b.popularity - a.popularity);
+                break;
+        }
+
+        renderProducts(filteredProducts);
+    }
+
+    // Обновление счетчика товаров
+    function updateProductCount() {
+        document.getElementById('productCount').textContent = filteredProducts.length;
+    }
+
+    // Инициализация кнопок корзины
+    function initializeCartButtons() {
+        // Обработчики уже добавлены в main.js через делегирование событий
+        console.log('Кнопки корзины инициализированы');
+    }
+
+    // Обработчики событий для полей цены (автоматическое применение фильтров при изменении)
+    document.getElementById('minPrice')?.addEventListener('change', applyFilters);
+    document.getElementById('maxPrice')?.addEventListener('change', applyFilters);
+    document.getElementById('brandFilter')?.addEventListener('change', applyFilters);
+    document.getElementById('categoryFilter')?.addEventListener('change', applyFilters);
+</script>
 </body>
 </html>
