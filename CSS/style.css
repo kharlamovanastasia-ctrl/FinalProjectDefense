@@ -256,40 +256,6 @@ footer {
     transform: scale(1.1);
 }
 
-/* Адаптивность для мобильных */
-@media (max-width: 768px) {
-    .cart-item {
-        padding: 15px 0;
-    }
-    
-    .cart-item .col-3,
-    .cart-item .col-5,
-    .cart-item .col-4,
-    .cart-item .col-2 {
-        padding: 5px;
-    }
-    
-    .cart-item-name {
-        font-size: 0.9em;
-        line-height: 1.2;
-    }
-    
-    .quantity-controls {
-        gap: 5px;
-    }
-    
-    .quantity-controls button {
-        width: 30px;
-        height: 30px;
-        font-size: 0.8em;
-    }
-    
-    .cart-remove {
-        width: 30px;
-        height: 30px;
-    }
-}
-
 /* Стили для пустой корзины */
 .cart-empty-state {
     text-align: center;
@@ -320,41 +286,71 @@ footer {
 
 /* Стили для каталога */
 .filters-card, .sort-card {
-    background: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
-.loading-spinner {
-    display: none;
-    text-align: center;
-    padding: 40px;
+.category-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
 }
 
-.discount-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: #e53935;
+.category-card:hover {
+    transform: translateY(-5px);
+    border-color: #28a745;
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.15);
+}
+
+.view-options .btn.active {
+    background-color: #28a745;
+    border-color: #28a745;
     color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    z-index: 1;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .product-image-list {
+        height: 80px;
+        width: 80px;
+    }
+    
+    .list-view .card-body {
+        padding: 1rem;
+    }
+    
+    .filters-card .row {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Стили для полей ввода цены */
+.input-group > .form-control:not(:first-child) {
+    border-left: 0;
+    padding-left: 0.5rem;
+}
+
+.input-group > .form-control:not(:last-child) {
+    border-right: 0;
+    padding-right: 0.5rem;
+}
+
+/* Анимации */
+.product-card {
+    transition: all 0.3s ease;
 }
 
 .stock-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--primary-green);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: bold;
     z-index: 1;
+}
+
+/* Улучшенные стили для списка */
+.list-view .product-card {
+    transition: all 0.3s ease;
+}
+
+.list-view .product-card:hover {
+    transform: translateX(5px);
 }
 
 /* Стили для логотипов производителей */
