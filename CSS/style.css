@@ -136,7 +136,7 @@ body {
 
 /* Стили для футера */
 footer {
-    background-color: #2c3e50 !important; /* Или ваш цвет из header */
+    background-color: var(--primary-green);
 }
 
 footer .container-fluid {
@@ -146,7 +146,7 @@ footer .container-fluid {
 
 /* Убедитесь, что фон растягивается на всю ширину */
 .bg-dark {
-    background-color: #2c3e50 !important; /* Цвет как в header */
+    background-color: var(--primary-green);
 }
 footer {
     background: var(--primary-green);
@@ -323,21 +323,7 @@ footer {
     color: white;
 }
 
-/* Адаптивность для мобильных */
-@media (max-width: 768px) {
-    .product-image-list {
-        height: 80px;
-        width: 80px;
-    }
-    
-    .list-view .card-body {
-        padding: 1rem;
-    }
-    
-    .filters-card .row {
-        margin-bottom: 0.5rem;
-    }
-}
+
 
 /* Стили для полей ввода цены */
 .input-group > .form-control:not(:first-child) {
@@ -486,68 +472,65 @@ footer {
 }
 
 
-/* Адаптивность для Hero */
-@media (max-width: 768px) {
-    .hero {
-        padding: 80px 0;
-        background-attachment: scroll;
+
+/* Стили для мобильной навигации */
+.navbar-toggler {
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 4px 8px;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    width: 20px;
+    height: 20px;
+}
+
+.mobile-nav {
+    border: 1px solid #dee2e6;
+}
+
+.mobile-nav .nav-link {
+    padding: 12px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav .nav-link:hover {
+    background-color: #f8f9fa;
+}
+
+/* Адаптивность для навигации */
+@media (max-width: 767.98px) {
+    .main-nav {
+        display: none !important;
     }
     
-    .hero h1 {
-        font-size: 2.2rem;
+    .header-contacts.d-none.d-md-block {
+        display: none !important;
     }
     
-    .hero .lead {
-        font-size: 1.2rem;
-    }
-    
-    .hero::before {
-        filter: blur(4px) brightness(0.8);
+    .btn-outline-light-custom.d-none.d-md-inline-block {
+        display: none !important;
     }
 }
 
-@media (max-width: 576px) {
-    .hero {
-        padding: 60px 0;
+@media (min-width: 768px) {
+    .navbar-toggler {
+        display: none !important;
     }
     
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .hero .lead {
-        font-size: 1.1rem;
+    #mobileNav {
+        display: none !important;
     }
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    body {
-        padding-top: 140px;
-    }
-    
-    .header-contacts {
-        text-align: center;
-        margin: 10px 0;
-    }
-    
-    .hero {
-        padding: 60px 0;
-    }
-    
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .hero .lead {
-        font-size: 1.1rem;
-    }
+/* Плавная анимация для мобильного меню */
+.collapse:not(.show) {
+    display: none;
 }
 
-.text-green {
-    color: var(--primary-green) !important;
-}
-
-.text-orange {
-    color: var(--accent-orange) !important;
+.collapsing {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.35s ease;
 }
